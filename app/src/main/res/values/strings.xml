@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Submission Empat</string>
+    <string name="app_name">Music and TV Show Application</string>
+    <string name="read_more">Read More</string>
+    <string name="change_language">Change Language</string>
+
+    <string name = "title_fragment_movie">List Movie</string>
+    <string name = "title_fragment_tvshow">List TV Show</string>
+
 </resources>
