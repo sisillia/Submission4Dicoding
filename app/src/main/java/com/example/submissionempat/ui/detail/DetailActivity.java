@@ -1,6 +1,7 @@
 package com.example.submissionempat.ui.detail;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -40,5 +41,11 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(movieData.getPoster_path())
                 .into(imgFilm);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_favorite,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
