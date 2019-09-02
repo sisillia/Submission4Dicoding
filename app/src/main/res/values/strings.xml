@@ -6,4 +6,11 @@
     <string name = "title_fragment_movie">List Movie</string>
     <string name = "title_fragment_tvshow">List TV Show</string>
 
+    <string name = "title_fragment_movie_fav">Movie Favorite</string>
+    <string name = "title_fragment_tvshow_Fav">TV Show Favorite</string>
+
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+
 </resources>

@@ -6,4 +6,11 @@
 
     <string name = "title_fragment_movie">List Film</string>
     <string name = "title_fragment_tvshow">List Acara TV</string>
+
+    <string name = "title_fragment_movie_fav">Film Favorit</string>
+    <string name = "title_fragment_tvshow_Fav">Acara Tv Favorit</string>
+
+    <string name="home">Beranda</string>
+    <string name="search">Cari</string>
+    <string name="favorite">Favorit</string>
 </resources>

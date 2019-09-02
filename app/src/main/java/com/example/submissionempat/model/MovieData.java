@@ -1,5 +1,6 @@
 package com.example.submissionempat.model;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -8,10 +9,19 @@ import org.json.JSONObject;
 
 public class MovieData implements Parcelable {
 
+    private int id;
     private String title;
     private int popularity;
     private String overview;
     private String poster_path;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -48,6 +58,7 @@ public class MovieData implements Parcelable {
     public MovieData(JSONObject object){
         try {
             String title = object.getString("title");
+            int id = object.getInt("id");
             String overview = object.getString("overview");
             String poster_path = object.getString("poster_path");
             String finalPosterPath = "https://image.tmdb.org/t/p/w500"+poster_path;
@@ -55,6 +66,7 @@ public class MovieData implements Parcelable {
             Log.d("cetakTitle",title);
 
 
+            this.id = id;
             this.title = title;
             this.popularity = popularity;
             this.poster_path = finalPosterPath;
@@ -75,12 +87,14 @@ public class MovieData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.poster_path);
         dest.writeString(this.overview);
     }
 
     protected MovieData(Parcel in){
+        this.id = in.readInt();
         this.title =in.readString();
         this.poster_path = in.readString();
         this.overview = in.readString();
