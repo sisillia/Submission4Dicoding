@@ -51,6 +51,17 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         return mData.size();
     }
 
+    public void addItem(MovieData movieData){
+        this.mData.add(movieData);
+        notifyItemInserted(mData.size()-1);
+    }
+
+    public void removeItem(int position){
+        this.mData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,mData.size());
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvDesc;

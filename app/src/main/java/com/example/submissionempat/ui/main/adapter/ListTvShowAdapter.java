@@ -53,6 +53,17 @@ public class ListTvShowAdapter extends RecyclerView.Adapter<ListTvShowAdapter.Vi
         return mData.size();
     }
 
+    public void addItem(TvData tvData){
+        this.mData.add(tvData);
+        notifyItemInserted(mData.size()-1);
+    }
+
+    public void removeItem(int position){
+        this.mData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,mData.size());
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvDesc;
