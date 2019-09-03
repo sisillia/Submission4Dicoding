@@ -1,4 +1,4 @@
-package com.example.submissionempat.ui.main.adapter;
+package com.example.submissionempat.ui.main.adapter.all;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,41 +8,43 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.submissionempat.R;
 import com.example.submissionempat.model.MovieData;
+import com.example.submissionempat.model.TvData;
 import com.example.submissionempat.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
 
-public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder> {
+public class ListTvShowAdapter extends RecyclerView.Adapter<ListTvShowAdapter.ViewHolder> {
 
-    private ArrayList<MovieData> mData;
+    private ArrayList<TvData> mData;
     private final Context context;
 
-    public ListMovieAdapter(Context context) {
+    public ListTvShowAdapter(Context context) {
+        this.mData = new ArrayList<>();
         this.context = context;
-        mData = new ArrayList<>();
     }
 
-    public void setMovieData(ArrayList<MovieData> data){
+    public void setTvData(ArrayList<TvData> data){
         mData.clear();
         mData.addAll(data);
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
-    public ListMovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ListTvShowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_card_data, viewGroup, false);
         return new ViewHolder(mView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ListTvShowAdapter.ViewHolder viewHolder, int position) {
         viewHolder.bind(mData.get(position));
     }
 
@@ -51,8 +53,8 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         return mData.size();
     }
 
-    public void addItem(MovieData movieData){
-        this.mData.add(movieData);
+    public void addItem(TvData tvData){
+        this.mData.add(tvData);
         notifyItemInserted(mData.size()-1);
     }
 
@@ -67,7 +69,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         TextView tvDesc;
         ImageView imgPhoto;
         Button btnReadMore;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_item_name);
@@ -75,21 +76,22 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
             tvDesc = itemView.findViewById(R.id.longdesc_item);
             btnReadMore = itemView.findViewById(R.id.btn_read_more);
         }
-        void bind(final MovieData movieData){
-            tvName.setText(movieData.getTitle());
-            tvDesc.setText(movieData.getOverview());
+
+        void bind(final TvData tvData){
+            tvName.setText(tvData.getName());
+            tvDesc.setText(tvData.getOverview());
 
             Glide.with(itemView.getContext())
-                    .load(movieData.getPoster_path())
+                    .load(tvData.getPoster_path())
                     .into(imgPhoto);
 
             btnReadMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     MovieData list = new MovieData();
-                    list.setTitle(movieData.getTitle());
-                    list.setOverview(movieData.getOverview());
-                    list.setPoster_path(movieData.getPoster_path());
+                    list.setTitle(tvData.getName());
+                    list.setOverview(tvData.getOverview());
+                    list.setPoster_path(tvData.getPoster_path());
 
                     Intent sendData = new Intent(context, DetailActivity.class);
                     sendData.putExtra(DetailActivity.EXTRA_DATA,list);

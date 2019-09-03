@@ -1,4 +1,4 @@
-package com.example.submissionempat.ui.main.fragment;
+package com.example.submissionempat.ui.main.fragment.all;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

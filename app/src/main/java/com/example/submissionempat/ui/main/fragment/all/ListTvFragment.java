@@ -1,4 +1,4 @@
-package com.example.submissionempat.ui.main.fragment;
+package com.example.submissionempat.ui.main.fragment.all;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,36 +15,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.submissionempat.R;
-import com.example.submissionempat.model.MovieData;
-import com.example.submissionempat.ui.main.adapter.ListMovieAdapter;
+import com.example.submissionempat.model.TvData;
+import com.example.submissionempat.ui.main.adapter.all.ListTvShowAdapter;
 import com.example.submissionempat.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 
-public class ListMovieFragment extends Fragment {
+public class ListTvFragment extends Fragment {
 
-    private ListMovieAdapter listMovieAdapter;
+    private ListTvShowAdapter listTvShowAdapter;
     private RecyclerView recyclerData;
     private MainViewModel mainViewModel;
     private ProgressBar progressBar;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_recycler_item_tv_movie, container, false);
         progressBar = view.findViewById(R.id.progressBar);
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mainViewModel.getMovieData().observe(this, getMovieData);
+        mainViewModel.getTVData().observe(this, getTVData);
 
-        listMovieAdapter = new ListMovieAdapter(getContext());
-        listMovieAdapter.notifyDataSetChanged();
+        listTvShowAdapter = new ListTvShowAdapter(getContext());
+        listTvShowAdapter.notifyDataSetChanged();
 
         recyclerData = (RecyclerView) view.findViewById(R.id.recycler_data);
         recyclerData.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerData.setAdapter(listMovieAdapter);
+        recyclerData.setAdapter(listTvShowAdapter);
 
 
         mainViewModel.setListMovieData();
@@ -53,11 +51,11 @@ public class ListMovieFragment extends Fragment {
         return view;
     }
 
-    private Observer<ArrayList<MovieData>> getMovieData = new Observer<ArrayList<MovieData>>() {
+    private Observer<ArrayList<TvData>> getTVData = new Observer<ArrayList<TvData>>() {
         @Override
-        public void onChanged(@Nullable ArrayList<MovieData> movieData) {
-            if (movieData != null){
-                listMovieAdapter.setMovieData(movieData);
+        public void onChanged(@Nullable ArrayList<TvData> tvData) {
+            if (tvData != null){
+                listTvShowAdapter.setTvData(tvData);
                 showLoading(false);
             }
         }
@@ -70,5 +68,4 @@ public class ListMovieFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
     }
-
 }

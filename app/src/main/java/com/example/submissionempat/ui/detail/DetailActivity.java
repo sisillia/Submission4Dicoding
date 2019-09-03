@@ -24,7 +24,6 @@ public class DetailActivity extends AppCompatActivity {
     TextView titleFilm, descOfFilm;
     public static final String EXTRA_DATA = "extra_data";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

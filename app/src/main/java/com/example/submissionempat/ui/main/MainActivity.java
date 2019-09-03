@@ -8,22 +8,14 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.submissionempat.R;
-import com.example.submissionempat.ui.main.adapter.TabListAdapter;
-import com.example.submissionempat.ui.main.fragment.ListAllFragment;
-import com.example.submissionempat.ui.main.fragment.ListFavoriteFragment;
-import com.example.submissionempat.ui.main.fragment.ListMovieFragment;
-import com.example.submissionempat.ui.main.fragment.ListTvFragment;
+import com.example.submissionempat.ui.main.fragment.all.ListAllFragment;
+import com.example.submissionempat.ui.main.fragment.favorite.ListFavoriteFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private TabListAdapter tabListAdapter;
     private BottomNavigationView bottomNavigationView;
 
     @Override

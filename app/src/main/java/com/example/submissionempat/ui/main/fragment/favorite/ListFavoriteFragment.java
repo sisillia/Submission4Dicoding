@@ -1,4 +1,4 @@
-package com.example.submissionempat.ui.main.fragment;
+package com.example.submissionempat.ui.main.fragment.favorite;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.submissionempat.R;
 import com.example.submissionempat.ui.main.adapter.TabListAdapter;
+import com.example.submissionempat.ui.main.fragment.all.ListMovieFragment;
+import com.example.submissionempat.ui.main.fragment.all.ListTvFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class ListFavoriteFragment extends Fragment {
