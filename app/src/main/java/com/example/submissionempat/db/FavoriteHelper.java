@@ -87,21 +87,35 @@ public class FavoriteHelper {
 
     public boolean isFavorite(int id) {
         open();
-        Cursor cursor = database.rawQuery("select id, title, description, image from favorite where id = "+id, null);
+        Cursor cursor = database.query(DATABASE_TABLE,
+                new String[]{ID, TITLE, DESCRIPTION, IMAGE},
+                "id" + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            cursor.close();
+            return false;
+        } else {
+            MovieData movieData = new MovieData();
+            movieData.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
+            movieData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+            movieData.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+            movieData.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+            cursor.close();
 
-        MovieData movieData = new MovieData();
-
-        movieData.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
-        movieData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-        movieData.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
-        movieData.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
-
-        return movieData != null;
+            return movieData != null;
+        }
     }
 
     public MovieData getMovieData(int id){
         open();
-        Cursor cursor = database.rawQuery("select id, title, description, image  where id = id", null);
+
+        ArrayList<MovieData> arrayList = new ArrayList<>();
+        Cursor cursor = database.query(DATABASE_TABLE,
+                new String[]{ID, TITLE, DESCRIPTION, IMAGE},
+                "id" + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+//        Cursor cursor = database.rawQuery("select id, title, description, image  where id = id", null);
 
         if(!cursor.moveToFirst()){
             cursor.close();

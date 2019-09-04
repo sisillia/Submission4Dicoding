@@ -76,9 +76,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         descOfFilm = (TextView) findViewById(R.id.tv_desc_film);
         imgFavorite = (ImageView) findViewById(R.id.img_favorite);
 
-        if(FavoriteHelper.getInstance(this).isFavorite(id)) {
-
-        }
+//        if(FavoriteHelper.getInstance(this).isFavorite(id)) {
+//
+//        }
 
         movieData = getIntent().getParcelableExtra(EXTRA_DATA);
 
@@ -152,6 +152,16 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_FAVORITES,movieData);
                 intent.putExtra(EXTRA_POSITION,0);
+
+                long result = favoriteHelper.insertNote(movieData);
+
+                if (result > 0 ){
+                    movieData.setId((int)result);
+                    setResult(RESULT_ADD, intent);
+                    finish();
+                } else {
+                    Toast.makeText(DetailActivity.this, "Gagal menambahkan ke favorite", Toast.LENGTH_SHORT).show();
+                }
             }
 
 //            if(isFavorite){
@@ -173,12 +183,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private void showAlertDialog(int type) {
 
         String dialogTitle, dialogMessage;
-
         dialogMessage = "Apakah anda yakin ingin menghapus item ini dari favorite?";
         dialogTitle = "Hapus Note";
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
         alertDialogBuilder.setTitle(dialogTitle);
         alertDialogBuilder
                 .setMessage(dialogMessage)
@@ -195,7 +203,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                         } else {
                             Toast.makeText(DetailActivity.this, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
