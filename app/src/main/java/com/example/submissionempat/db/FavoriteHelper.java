@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.submissionempat.model.MovieData;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import static android.provider.MediaStore.Audio.Playlists.Members._ID;
 import static com.example.submissionempat.db.DatabaseContract.FavoriteColumn.DESCRIPTION;
+import static com.example.submissionempat.db.DatabaseContract.FavoriteColumn.ID;
 import static com.example.submissionempat.db.DatabaseContract.FavoriteColumn.IMAGE;
 import static com.example.submissionempat.db.DatabaseContract.FavoriteColumn.TITLE;
 import static com.example.submissionempat.db.DatabaseContract.TABLE_FAVORITE;
@@ -48,6 +50,7 @@ public class FavoriteHelper {
     }
 
     public ArrayList<MovieData> getAllNotes() {
+        open();
         ArrayList<MovieData> arrayList = new ArrayList<>();
         Cursor cursor = database.query(DATABASE_TABLE, null,
                 null,
@@ -57,11 +60,10 @@ public class FavoriteHelper {
                 _ID + " ASC",
                 null);
         cursor.moveToFirst();
-        MovieData movieData;
+        MovieData movieData = new MovieData();
         if (cursor.getCount() > 0) {
             do {
-                movieData = new MovieData();
-//                note.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                movieData.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
                 movieData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 movieData.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
                 movieData.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
@@ -74,14 +76,49 @@ public class FavoriteHelper {
     }
 
     public long insertNote(MovieData movieData) {
+        open();
         ContentValues args = new ContentValues();
         args.put(TITLE, movieData.getTitle());
+        args.put(ID,movieData.getId());
         args.put(DESCRIPTION, movieData.getOverview());
         args.put(IMAGE, movieData.getPoster_path());
         return database.insert(DATABASE_TABLE, null, args);
     }
 
+    public boolean isFavorite(int id) {
+        open();
+        Cursor cursor = database.rawQuery("select id, title, description, image from favorite where id = "+id, null);
+
+        MovieData movieData = new MovieData();
+
+        movieData.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
+        movieData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+        movieData.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+        movieData.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+
+        return movieData != null;
+    }
+
+    public MovieData getMovieData(int id){
+        open();
+        Cursor cursor = database.rawQuery("select id, title, description, image  where id = id", null);
+
+        if(!cursor.moveToFirst()){
+            cursor.close();
+        }
+
+        MovieData movieData = new MovieData();
+
+        movieData.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
+        movieData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+        movieData.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+        movieData.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+
+        return movieData;
+    }
+
     public int deleteNote(int id) {
+        open();
         return database.delete(TABLE_FAVORITE, _ID + " = '" + id + "'", null);
     }
 

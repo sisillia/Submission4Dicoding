@@ -9,6 +9,7 @@ public class DatabaseContract {
     static final class FavoriteColumn implements BaseColumns {
         static String TITLE = "title";
         static String DESCRIPTION = "description";
+        static String ID = "id";
         static String IMAGE = "image";
     }
 }

@@ -1,4 +1,6 @@
 package com.example.submissionempat.ui.main.fragment.favorite;
 
-public class ListTvShowFavoriteFragment {
+import androidx.fragment.app.Fragment;
+
+public class ListTvShowFavoriteFragment extends Fragment {
 }

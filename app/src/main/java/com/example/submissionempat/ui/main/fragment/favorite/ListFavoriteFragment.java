@@ -31,8 +31,8 @@ public class ListFavoriteFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
 
         tabListAdapter = new TabListAdapter(getFragmentManager());
-        tabListAdapter.addFragment(new ListMovieFragment(), getResources().getString(R.string.title_fragment_movie_fav));
-        tabListAdapter.addFragment(new ListTvFragment(), getResources().getString(R.string.title_fragment_tvshow_Fav));
+        tabListAdapter.addFragment(new ListMovieFavoriteFragment(), getResources().getString(R.string.title_fragment_movie_fav));
+        tabListAdapter.addFragment(new ListTvShowFavoriteFragment(), getResources().getString(R.string.title_fragment_tvshow_Fav));
 
         viewPager.setAdapter(tabListAdapter);
         tabLayout.setupWithViewPager(viewPager);

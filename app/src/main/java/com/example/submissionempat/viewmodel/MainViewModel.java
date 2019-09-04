@@ -1,11 +1,13 @@
 package com.example.submissionempat.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.submissionempat.db.FavoriteHelper;
 import com.example.submissionempat.model.MovieData;
 import com.example.submissionempat.model.TvData;
 import com.loopj.android.http.AsyncHttpClient;
@@ -20,6 +22,10 @@ public class MainViewModel extends ViewModel {
     private static final String API_KEY = "ca17afdd8c6d6638a7ee520a9b84ea8f";
     private MutableLiveData<ArrayList<MovieData>> listMovieData = new MutableLiveData<>();
     private MutableLiveData<ArrayList<TvData>> lisTvData = new MutableLiveData<>();
+
+    private MutableLiveData<ArrayList<MovieData>> lisMovieFavorite = new MutableLiveData<>();
+
+    private MutableLiveData<MovieData> listMovieIsFavorite = new MutableLiveData<>();
 
     public void setListMovieData() {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -90,4 +96,15 @@ public class MainViewModel extends ViewModel {
     public LiveData<ArrayList<TvData>> getTVData(){
         return lisTvData;
     }
+
+    public LiveData<ArrayList<MovieData>> getDataFavorite(Context context) {
+        lisMovieFavorite.postValue(FavoriteHelper.getInstance(context).getAllNotes());
+        return lisMovieFavorite;
+    }
+
+    public LiveData<MovieData> getCheckFavorite(Context context,int id){
+        listMovieIsFavorite.postValue(FavoriteHelper.getInstance(context).getMovieData(id));
+        return listMovieIsFavorite;
+    }
+
 }

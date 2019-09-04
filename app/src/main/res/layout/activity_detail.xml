@@ -7,11 +7,28 @@
     android:padding="15dp"
     tools:context=".ui.detail.DetailActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <RelativeLayout
         android:id="@+id/img_film"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_circle"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/img_favorite"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginLeft="115dp"/>
+    </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/tv_title_film"
